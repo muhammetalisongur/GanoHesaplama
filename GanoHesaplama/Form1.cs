@@ -18,20 +18,19 @@ namespace Gano_Hesaplama_Aracı
             InitializeComponent();
         }
 
-        ValidationRules validationRules = new ValidationRules();
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
-            textBox5.Clear();
+            txtAd.Clear();
+            txtSoyad.Clear();
+            txtOkul.Clear();
+            txtBolum.Clear();
+            txtSinif.Clear();
 
-            textBox1.BackColor = Color.White;
-            textBox2.BackColor = Color.White;
-            textBox3.BackColor = Color.White;
-            textBox4.BackColor = Color.White;
-            textBox5.BackColor = Color.White;
+            txtAd.BackColor = Color.White;
+            txtSoyad.BackColor = Color.White;
+            txtOkul.BackColor = Color.White;
+            txtBolum.BackColor = Color.White;
+            txtSinif.BackColor = Color.White;
 
         }
 
@@ -41,26 +40,26 @@ namespace Gano_Hesaplama_Aracı
 
 
             if (
-     textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" ||
-     textBox1.Text == String.Empty || textBox2.Text == String.Empty || textBox3.Text == String.Empty || 
-     textBox4.Text == String.Empty || textBox5.Text == String.Empty )
+     txtAd.Text == "" || txtSoyad.Text == "" || txtOkul.Text == "" || txtBolum.Text == "" || txtSinif.Text == "" ||
+     txtAd.Text == String.Empty || txtSoyad.Text == String.Empty || txtOkul.Text == String.Empty || 
+     txtBolum.Text == String.Empty || txtSinif.Text == String.Empty )
             {
-                textBox1.BackColor = Color.Yellow;
-                textBox2.BackColor = Color.Yellow;
-                textBox3.BackColor = Color.Yellow;
-                textBox4.BackColor = Color.Yellow;
-                textBox5.BackColor = Color.Yellow;
+                txtAd.BackColor = Color.Yellow;
+                txtSoyad.BackColor = Color.Yellow;
+                txtOkul.BackColor = Color.Yellow;
+                txtBolum.BackColor = Color.Yellow;
+                txtSinif.BackColor = Color.Yellow;
                 MessageBox.Show("Sarı Rekli Alanları Boş Geçemezsiniz", "Boş Alan Hatası",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             else
 {
                 this.Visible = false;
                 Form2 form2 = new Form2();
-                form2.label6.Text = textBox1.Text;
-                form2.label7.Text = textBox2.Text;
-                form2.label8.Text = textBox3.Text;
-                form2.label9.Text = textBox4.Text;
-                form2.label10.Text = textBox5.Text + ".Sınıf";
+                form2.label6.Text = txtAd.Text;
+                form2.label7.Text = txtSoyad.Text;
+                form2.label8.Text = txtOkul.Text;
+                form2.label9.Text = txtBolum.Text;
+                form2.label10.Text = txtSinif.Text + ".Sınıf";
 
                 form2.ShowDialog();
 
@@ -70,28 +69,31 @@ namespace Gano_Hesaplama_Aracı
 
         }
 
-        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtSinif_KeyPress(object sender, KeyPressEventArgs e)
         {
-            validationRules.digital;
+            if (e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                MessageBox.Show("Sayisal Değer Giriniz...", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
-        private void textBox5_TextChanged(object sender, EventArgs e)
+        private void txtSinif_TextChanged(object sender, EventArgs e)
         {
-            if (textBox5.Text!="")
+            if (txtSinif.Text!="")
             {
                 try
                 {
-                    int sinif = Convert.ToInt32(textBox5.Text);
+                    int sinif = Convert.ToInt32(txtSinif.Text);
                     if (sinif<1)
                     {
                         MessageBox.Show("1 veya 4 aralığında rakam giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        textBox5.Text = textBox5.Text.Remove(textBox5.Text.Length - 1);
+                        txtSinif.Text = txtSinif.Text.Remove(txtSinif.Text.Length - 1);
 
                     }
                     else if (sinif > 4)
                     {
                         MessageBox.Show("1 veya 4 aralığında rakam giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        textBox5.Text = textBox5.Text.Remove(textBox5.Text.Length - 1);
+                        txtSinif.Text = txtSinif.Text.Remove(txtSinif.Text.Length - 1);
                     }
                 }
                 catch (Exception)
@@ -105,42 +107,42 @@ namespace Gano_Hesaplama_Aracı
 
 
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void txtSoyad_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox2.Text, "[^A-z ]"))
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtSoyad.Text, "[^A-z ]"))
             {
                 MessageBox.Show("Sadece Harf Giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                textBox2.Text = textBox2.Text.Remove(textBox2.Text.Length - 1);
+                txtSoyad.Text = txtSoyad.Text.Remove(txtSoyad.Text.Length - 1);
 
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void txtAd_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^A-z ]"))
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtAd.Text, "[^A-z ]"))
             {
                 MessageBox.Show("Sadece Harf Giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
+                txtAd.Text = txtAd.Text.Remove(txtAd.Text.Length - 1);
 
             }
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void txtOkul_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox3.Text, "[^A-z ]"))
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtOkul.Text, "[^A-z ]"))
             {
                 MessageBox.Show("Sadece Harf Giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                txtOkul.Text = txtOkul.Text.Remove(txtOkul.Text.Length - 1);
 
             }
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        private void txtBolum_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox4.Text, "[^A-z ]"))
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtBolum.Text, "[^A-z ]"))
             {
                 MessageBox.Show("Sadece Harf Giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                textBox4.Text = textBox4.Text.Remove(textBox4.Text.Length - 1);
+                txtBolum.Text = txtBolum.Text.Remove(txtBolum.Text.Length - 1);
 
             }
         }
