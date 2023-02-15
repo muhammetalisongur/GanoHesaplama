@@ -17,6 +17,8 @@ namespace Gano_Hesaplama_Aracı
         {
             InitializeComponent();
         }
+        Commands commands = new Commands();
+        ValidationRules validationRules = new ValidationRules();
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
@@ -36,23 +38,10 @@ namespace Gano_Hesaplama_Aracı
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            
 
 
-            if (
-     txtAd.Text == "" || txtSoyad.Text == "" || txtOkul.Text == "" || txtBolum.Text == "" || txtSinif.Text == "" ||
-     txtAd.Text == String.Empty || txtSoyad.Text == String.Empty || txtOkul.Text == String.Empty || 
-     txtBolum.Text == String.Empty || txtSinif.Text == String.Empty )
-            {
-                txtAd.BackColor = Color.Yellow;
-                txtSoyad.BackColor = Color.Yellow;
-                txtOkul.BackColor = Color.Yellow;
-                txtBolum.BackColor = Color.Yellow;
-                txtSinif.BackColor = Color.Yellow;
-                MessageBox.Show("Sarı Rekli Alanları Boş Geçemezsiniz", "Boş Alan Hatası",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-            }
-            else
-{
+
+          
                 this.Visible = false;
                 Form2 form2 = new Form2();
                 form2.label6.Text = txtAd.Text;
@@ -61,10 +50,12 @@ namespace Gano_Hesaplama_Aracı
                 form2.label9.Text = txtBolum.Text;
                 form2.label10.Text = txtSinif.Text + ".Sınıf";
 
+                commands.saveFile(txtAd, txtSoyad, txtOkul, txtBolum, txtSinif);
+
                 form2.ShowDialog();
 
-               
-            }
+
+            
 
 
         }
@@ -73,18 +64,18 @@ namespace Gano_Hesaplama_Aracı
         {
             if (e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
-                MessageBox.Show("Sayisal Değer Giriniz...", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                validationRules.digitalValue();
             }
         }
 
         private void txtSinif_TextChanged(object sender, EventArgs e)
         {
-            if (txtSinif.Text!="")
+            if (txtSinif.Text != "")
             {
                 try
                 {
                     int sinif = Convert.ToInt32(txtSinif.Text);
-                    if (sinif<1)
+                    if (sinif < 1)
                     {
                         MessageBox.Show("1 veya 4 aralığında rakam giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         txtSinif.Text = txtSinif.Text.Remove(txtSinif.Text.Length - 1);
@@ -102,19 +93,14 @@ namespace Gano_Hesaplama_Aracı
                     throw;
                 }
             }
-           
+
         }
 
 
 
         private void txtSoyad_TextChanged(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(txtSoyad.Text, "[^A-z ]"))
-            {
-                MessageBox.Show("Sadece Harf Giriniz... ", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtSoyad.Text = txtSoyad.Text.Remove(txtSoyad.Text.Length - 1);
-
-            }
+            validationRules.letterValue(txtSoyad.Text);
         }
 
         private void txtAd_TextChanged(object sender, EventArgs e)
@@ -147,6 +133,19 @@ namespace Gano_Hesaplama_Aracı
             }
         }
 
-      
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = commands.DataCsv();
+        }
+
+        private void txtAd_TextChanged_1(object sender, EventArgs e)
+        {
+            validationRules.emptyValueAd(txtAd);
+        }
+
+        private void txtAd_MouseMove(object sender, MouseEventArgs e)
+        {
+            validationRules.emptyValueAd(txtAd);
+        }
     }
 }
