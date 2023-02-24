@@ -140,12 +140,12 @@ namespace Gano_Hesaplama_Aracı
 
         private void txtAd_TextChanged_1(object sender, EventArgs e)
         {
-            validationRules.emptyValueAd(txtAd);
+            //validationRules.emptyValueAd(txtAd);
         }
 
         private void txtAd_MouseMove(object sender, MouseEventArgs e)
         {
-            validationRules.emptyValueAd(txtAd);
+            //validationRules.emptyValueAd(txtAd);
         }
     }
 }
